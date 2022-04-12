@@ -6,14 +6,14 @@ import '../../screens/detailscreen.dart';
 
 class SpaceXCard extends StatefulWidget {
   @override
-  final person;
-  SpaceXCard(this.person);
-  State<SpaceXCard> createState() => _SpaceXCardState(this.person);
+  final newsTab;
+  SpaceXCard(this.newsTab);
+  State<SpaceXCard> createState() => _SpaceXCardState(this.newsTab);
 }
 
 class _SpaceXCardState extends State<SpaceXCard> {
-  final person;
-  _SpaceXCardState(this.person) : super();
+  final newsTab;
+  _SpaceXCardState(this.newsTab) : super();
   var news = [];
 
   @override
@@ -24,7 +24,7 @@ class _SpaceXCardState extends State<SpaceXCard> {
   }
 
   getNewsList() async {
-    var newsFromApi = await getNewsSpaceX(this.person);
+    var newsFromApi = await getNewsSpaceX();
     setState(() {
       news = newsFromApi;
     });
@@ -43,23 +43,14 @@ class _SpaceXCardState extends State<SpaceXCard> {
                 String like_count = newsCall['like_count'].toString();
                 String flag_count = newsCall['flag_count'].toString();
 
-                return ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.all(5),
-                    primary: Colors.white,
-                    onPrimary: Colors.grey,
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    maximumSize: Size(200, 150),
+                return Container(
+                  margin: EdgeInsets.all(5),
+                  height: 130,
+                  width: 250,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
                   ),
-                  onPressed: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) =>
-                    //             DetailScr.Getnewsdata(newspos)));
-                  },
                   child: Row(
                     children: [
                       Expanded(

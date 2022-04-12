@@ -1,48 +1,62 @@
 import 'package:emv_home/api/newsArticleModel.dart';
-import 'package:emv_home/post_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'package:lorem_ipsum/lorem_ipsum.dart';
 import 'package:share_plus/share_plus.dart';
+import '../drawer/leftSideDrawer.dart';
+import '../drawer/rightSideDrawer.dart';
 import '../sections/space_X/space_X_Card.dart';
 
 class DetailScr extends StatefulWidget {
-  // var Postdata = [];
-  // Getnewsdata(NewsPostData) {
-  //   Postdata = NewsPostData;
-  // }
-  final title;
-  DetailScr({this.title});
+  var Postdata = [];
+
+  final title, description, image_url, pubDate, discuss_count;
+  DetailScr(this.title, this.description, this.image_url, this.pubDate,
+      this.discuss_count);
 
   @override
-  State<DetailScr> createState() => _DetailScrState();
+  State<DetailScr> createState() => _DetailScrState(this.title,
+      this.description, this.image_url, this.pubDate, this.discuss_count);
 
   @override
   noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
 class _DetailScrState extends State<DetailScr> {
+  final title, description, image_url, pubDate, discuss_count;
+  _DetailScrState(this.title, this.description, this.image_url, this.pubDate,
+      this.discuss_count);
   void _shareContent() {
-    Share.share('the current news link');
+    Share.share(title);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const LeftSideDrawer(),
+      endDrawer: const RightSideDrawer(),
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(""),
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: FlatButton(
+          onPressed: () => print('for Home screen'),
+          child: const Image(
+            image: AssetImage('images/mainlogo.png'),
+            height: 100,
+            width: 100,
+          ),
+        ),
+        titleTextStyle: const TextStyle(color: Colors.black, fontSize: 25),
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 255, 254, 254),
       ),
-      backgroundColor: Color.fromARGB(255, 136, 136, 136),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
               child: Container(
-            height: 800,
-            margin: EdgeInsets.all(20),
+            // margin: EdgeInsets.all(5),
             padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15), color: Colors.white),
+            decoration: BoxDecoration(color: Colors.white),
             child: Column(
               children: [
                 Container(
@@ -60,7 +74,7 @@ class _DetailScrState extends State<DetailScr> {
                   ),
                 ),
                 Text(
-                  'This is the sample of news Heading hope this works fine',
+                  this.title,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 Container(
@@ -68,25 +82,51 @@ class _DetailScrState extends State<DetailScr> {
                   child: Row(
                     children: [
                       Expanded(
-                          child: Container(
-                            alignment: Alignment.centerLeft,
-                            child: Icon(
-                              Icons.calendar_month,
-                              color: Colors.grey,
-                              size: 20,
-                            ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: Icon(
+                                  Icons.calendar_month,
+                                  color: Colors.grey,
+                                  size: 20,
+                                ),
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 5)),
+                              Expanded(
+                                  flex: 9,
+                                  child: Text(
+                                    this.pubDate,
+                                    style: TextStyle(
+                                        fontSize: 9, color: Colors.grey),
+                                  ))
+                            ],
                           ),
                           flex: 3),
                       Expanded(
-                          child: Container(
-                            alignment: Alignment.centerLeft,
-                            child: Icon(
-                              Icons.comment_rounded,
-                              color: Colors.grey,
-                              size: 20,
-                            ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: Icon(
+                                  Icons.comment,
+                                  color: Colors.grey,
+                                  size: 20,
+                                ),
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 5)),
+                              Expanded(
+                                  flex: 9,
+                                  child: Text(
+                                    this.discuss_count,
+                                    style: TextStyle(
+                                        fontSize: 9, color: Colors.grey),
+                                  ))
+                            ],
                           ),
-                          flex: 2),
+                          flex: 3),
                       Expanded(
                         flex: 2,
                         child: IconButton(
@@ -113,12 +153,19 @@ class _DetailScrState extends State<DetailScr> {
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Image(image: AssetImage('images/user_image.png')),
+                  child: Image(
+                      image: NetworkImage(
+                    this.image_url,
+                  )),
                 ),
                 Container(
-                  child: Text("sdfsd"),
+                  child: Text(
+                    this.description,
+                    style: TextStyle(fontSize: 15),
+                  ),
                 ),
                 Container(
+                    padding: EdgeInsets.only(top: 25),
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'LEAVE A COMMENT',
@@ -134,6 +181,16 @@ class _DetailScrState extends State<DetailScr> {
                     ),
                   ),
                 ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color.fromARGB(255, 40, 26, 149),
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0),
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: Text("Submit",
+                        style: TextStyle(color: Colors.white, fontSize: 15)))
               ],
             ),
           )),
@@ -142,94 +199,3 @@ class _DetailScrState extends State<DetailScr> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-// import 'package:flutter/material.dart';
-
-// class DetailsScreen extends StatefulWidget {
-//   String title, author, urlToImage, publishedAt, description;
-
-//   DetailsScreen(
-//       {required this.title,
-//       required this.author,
-//       required this.description,
-//       required this.publishedAt,
-//       required this.urlToImage,
-//       pubDate});
-
-//   @override
-//   _DetailsScreenState createState() => _DetailsScreenState();
-// }
-
-// class _DetailsScreenState extends State<DetailsScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: SingleChildScrollView(
-//         scrollDirection: Axis.vertical,
-//         child: Stack(
-//           children: <Widget>[
-//             Image.network(
-//               widget.urlToImage,
-//               fit: BoxFit.cover,
-//               width: MediaQuery.of(context).size.width,
-//               height: MediaQuery.of(context).size.height * 0.5,
-//             ),
-//             Padding(
-//               padding: EdgeInsets.fromLTRB(0.0, 350.0, 0.0, 0.0),
-//               child: Container(
-//                 height: MediaQuery.of(context).size.height,
-//                 width: MediaQuery.of(context).size.width,
-//                 child: Material(
-//                   borderRadius: BorderRadius.circular(35.0),
-//                   child: Column(
-//                     children: <Widget>[
-//                       Padding(
-//                         padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-//                         child: Text(
-//                           widget.title,
-//                           style: TextStyle(
-//                             fontSize: 30.0,
-//                             fontWeight: FontWeight.bold,
-//                           ),
-//                         ),
-//                       ),
-//                       Text(
-//                         widget.publishedAt.substring(0, 10),
-//                         style: TextStyle(
-//                           fontSize: 20.0,
-//                         ),
-//                       ),
-//                       Padding(
-//                         padding: EdgeInsets.all(20.0),
-//                         child: Text(
-//                           widget.description,
-//                           style: TextStyle(
-//                             fontSize: 25.0,
-//                           ),
-//                         ),
-//                       ),
-//                       Text(
-//                         widget.author,
-//                         style: TextStyle(
-//                           fontSize: 15.0,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

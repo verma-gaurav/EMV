@@ -3,9 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
-getNewsSpaceX(person) async {
+getNewsSpaceX() async {
   try {
-    print(person.value);
     var url = Uri.parse("https://www.mappz.info/api/v1/spacex/All");
 
     return http.get(url, headers: {
@@ -43,10 +42,66 @@ getNewsElonMusk() async {
   }
 }
 
-getNewsTesla(person) async {
+getNewsTesla() async {
   try {
-    print(person);
     var url = Uri.parse("https://www.mappz.info/api/v1/tesla/All");
+
+    return http.get(url, headers: {
+      "Accept": "application/json",
+    }).then((response) {
+      var body = jsonDecode(response.body);
+      print(body['data']);
+      return body['data'];
+    }).catchError((onError) {
+      print(onError.toString());
+      return [];
+    });
+  } catch (err) {
+    print(err.toString());
+  }
+}
+
+getTeslaForum() async {
+  try {
+    var url = Uri.parse("https://www.mappz.info/api/v1/teslaforum/");
+
+    return http.get(url, headers: {
+      "Accept": "application/json",
+    }).then((response) {
+      var body = jsonDecode(response.body);
+      print(body['data']);
+      return body['data'];
+    }).catchError((onError) {
+      print(onError.toString());
+      return [];
+    });
+  } catch (err) {
+    print(err.toString());
+  }
+}
+
+getElonMuskForum() async {
+  try {
+    var url = Uri.parse("https://www.mappz.info/api/v1/elonmuskforum/");
+
+    return http.get(url, headers: {
+      "Accept": "application/json",
+    }).then((response) {
+      var body = jsonDecode(response.body);
+      print(body['data']);
+      return body['data'];
+    }).catchError((onError) {
+      print(onError.toString());
+      return [];
+    });
+  } catch (err) {
+    print(err.toString());
+  }
+}
+
+getSpaceXForum() async {
+  try {
+    var url = Uri.parse("https://www.mappz.info/api/v1/spacexforum/");
 
     return http.get(url, headers: {
       "Accept": "application/json",

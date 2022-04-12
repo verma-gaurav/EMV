@@ -38,6 +38,8 @@ dependencies:
   lorem_ipsum: ^0.0.1
   flutter_icons: ^1.1.0
   share_plus: ^4.0.3
+  filter_list: ^1.0.1
+  flutter_phone_direct_caller: ^2.1.0
 flutter_native_splash:
   # This package generates native code to customize Flutter's default white native splash screen
   # with background color and splash image.

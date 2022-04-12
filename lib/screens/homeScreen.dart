@@ -1,3 +1,4 @@
+import 'package:emv_home/screens/signUp.dart';
 import 'package:emv_home/sections/elon_musk/elon_musk_card.dart';
 import 'package:emv_home/sections/tesla/tesla_card.dart';
 import 'package:flutter/material.dart';
@@ -13,23 +14,26 @@ import 'dart:async';
 
 class HomeScreen extends StatelessWidget {
   get smallButtons => null;
-  final ValueNotifier<String> person = ValueNotifier<String>('tesla');
+  final ValueNotifier<String> newsTab = ValueNotifier<String>('em');
   var isLoading = false;
   void varCall(p) {
-    person.value = p;
+    newsTab.value = p;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(234, 219, 219, 219),
+      backgroundColor: Color.fromARGB(234, 241, 241, 241),
       //App bar
       drawer: const LeftSideDrawer(),
       endDrawer: const RightSideDrawer(),
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.black),
         title: FlatButton(
-          onPressed: () => print('for Home screen'),
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (_) => HomeScreen()));
+          },
           child: const Image(
             image: AssetImage('images/mainlogo.png'),
             height: 100,
@@ -57,7 +61,71 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       FlatButton(
                         onPressed: () {
-                          varCall("tesla");
+                          // varCall("tesla");
+                          showDialog(
+                              context: context,
+                              builder: (ctx) {
+                                return Dialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(40)),
+                                    elevation: 16,
+                                    child: Container(
+                                        padding: EdgeInsets.only(top: 40),
+                                        height: 200,
+                                        width: 300,
+                                        child: Center(
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                "Choose One",
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 10)),
+                                              ElevatedButton(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    primary: Colors.green,
+                                                    shape:
+                                                        new RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          new BorderRadius
+                                                              .circular(30.0),
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    varCall('tesla');
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Text("Tesla Energy",
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.white))),
+                                              ElevatedButton(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    primary: Colors.red,
+                                                    shape:
+                                                        new RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          new BorderRadius
+                                                              .circular(30.0),
+                                                    ),
+                                                  ),
+                                                  onPressed: () {},
+                                                  child: Text("Tesla Motors",
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.white))),
+                                            ],
+                                          ),
+                                        )));
+                              });
                         },
                         child: Column(
                           children: [
@@ -149,7 +217,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 const Divider(
-                  color: Colors.grey,
+                  color: Color.fromARGB(255, 217, 217, 217),
                   height: 5,
                 ),
                 SizedBox(
@@ -196,13 +264,13 @@ class HomeScreen extends StatelessWidget {
             builder: (BuildContext context, String value, Widget? child) {
               // This builder will only get called when the _counter
               // is updated.
-              return person.value == 'tesla'
+              return newsTab.value == 'tesla'
                   ? TeslaTop()
-                  : person.value == 'spacex'
+                  : newsTab.value == 'spacex'
                       ? SpaceXTop()
                       : ElonMuskTop();
             },
-            valueListenable: person,
+            valueListenable: newsTab,
             // The child parameter is most helpful if the child is
             // expensive to build and does not depend on the value from
             // the notifier.
@@ -212,13 +280,13 @@ class HomeScreen extends StatelessWidget {
             builder: (BuildContext context, String value, Widget? child) {
               // This builder will only get called when the _counter
               // is updated.
-              return person.value == 'tesla'
-                  ? TeslaCard(person)
-                  : person.value == 'spacex'
-                      ? SpaceXCard(person)
-                      : ElonMuskCard();
+              return newsTab.value == 'tesla'
+                  ? TeslaCard(newsTab)
+                  : newsTab.value == 'spacex'
+                      ? SpaceXCard(newsTab)
+                      : ElonMuskCard(newsTab);
             },
-            valueListenable: person,
+            valueListenable: newsTab,
             // The child parameter is most helpful if the child is
             // expensive to build and does not depend on the value from
             // the notifier.

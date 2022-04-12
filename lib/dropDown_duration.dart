@@ -1,16 +1,17 @@
+import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-class DropDownLst extends StatefulWidget {
-  const DropDownLst({Key? key}) : super(key: key);
+class DropDownDuration extends StatefulWidget {
+  const DropDownDuration({Key? key}) : super(key: key);
 
   @override
-  State<DropDownLst> createState() => _DropDownLstState();
+  State<DropDownDuration> createState() => _DropDownDurationState();
 }
 
-class _DropDownLstState extends State<DropDownLst> {
-  String dropdownValue = 'One';
+class _DropDownDurationState extends State<DropDownDuration> {
+  String dropdownValue = 'Duration';
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
@@ -30,8 +31,12 @@ class _DropDownLstState extends State<DropDownLst> {
             dropdownValue = newValue!;
           });
         },
-        items: <String>['One', 'Two', 'Free', 'Four']
-            .map<DropdownMenuItem<String>>((String value) {
+        items: <String>[
+          'Duration',
+          'LastWeek',
+          '30 days',
+          '24 hours',
+        ].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(value),

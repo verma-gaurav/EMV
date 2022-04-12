@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../api/services/services.dart';
+import '../../screens/detailscreen.dart';
 
 class ElonMuskCard extends StatefulWidget {
+  ElonMuskCard(ValueNotifier<String> newsTab);
+
   @override
   State<ElonMuskCard> createState() => _ElonMuskCardState();
 }
@@ -36,23 +39,23 @@ class _ElonMuskCardState extends State<ElonMuskCard> {
                 String discuss_count = newsCall['discuss_count'].toString();
                 String like_count = newsCall['like_count'].toString();
                 String flag_count = newsCall['flag_count'].toString();
-                return ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.all(5),
-                    primary: Colors.white,
-                    onPrimary: Colors.grey,
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    maximumSize: Size(200, 150),
+                return Container(
+                  margin: EdgeInsets.all(5),
+                  height: 130,
+                  width: 250,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black,
+                        blurRadius: 9.0,
+                        spreadRadius: 0.0,
+                        offset:
+                            Offset(2.0, 2.0), // shadow direction: bottom right
+                      )
+                    ],
                   ),
-                  onPressed: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) =>
-                    //             DetailScr.Getnewsdata(newspos)));
-                  },
                   child: Row(
                     children: [
                       Expanded(
@@ -80,7 +83,7 @@ class _ElonMuskCardState extends State<ElonMuskCard> {
                               child: Container(
                                 alignment: Alignment.centerLeft,
                                 margin: EdgeInsets.only(top: 15),
-                                child: Text(newsCall['description'],
+                                child: Text(newsCall['title'],
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                     overflow: TextOverflow.fade),
@@ -270,7 +273,19 @@ class _ElonMuskCardState extends State<ElonMuskCard> {
                                                         12.0)),
                                             primary: Colors.grey,
                                           ),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) => DetailScr(
+                                                        newsCall['title'],
+                                                        newsCall['description'],
+                                                        newsCall['image_url'],
+                                                        newsCall['pubDate'],
+                                                        newsCall[
+                                                                'discuss_count']
+                                                            .toString())));
+                                          },
                                           child: Text(
                                             "Read more",
                                             style: TextStyle(
@@ -325,245 +340,3 @@ class _ElonMuskCardState extends State<ElonMuskCard> {
     );
   }
 }
-
-
-// import 'package:flutter/material.dart';
-// import 'package:emv_home/dropDown.dart';
-// import 'package:emv_home/screens/chatRoom/chatScreens/homePage.dart';
-// import 'package:flutter/cupertino.dart';
-// import '../reusableCard.dart';
-// // import '../api/NewsPost.dart';
-// import '../../screens/chatRoom/chatScreens/homePage.dart';
-// import 'package:http/http.dart' as http;
-// import 'dart:convert';
-
-// // String? stringResponse;
-// Map? elonMuskDataResponse;
-// // List<NewsPost>? elonMuskListResponse;
-
-// class ElonMustWidget extends StatefulWidget {
-//   const ElonMustWidget({
-//     Key? key,
-//     required this.smallButtons,
-//   }) : super(key: key);
-//   final ButtonStyle smallButtons;
-
-//   @override
-//   State<ElonMustWidget> createState() => _ElonMustWidgetState();
-// }
-
-// class _ElonMustWidgetState extends State<ElonMustWidget> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       margin: const EdgeInsets.only(top: 0),
-//       width: 100,
-//       decoration: const BoxDecoration(),
-//       child: Column(
-//         //padding: const EdgeInsets.all(8),
-//         children: <Widget>[
-//           Container(
-//               margin: const EdgeInsets.only(bottom: 5),
-//               decoration: BoxDecoration(
-//                   color: Colors.white, borderRadius: BorderRadius.circular(10)),
-//               child: Column(
-//                 children: [
-//                   SizedBox(
-//                     child: Row(
-//                       children: const [
-//                         Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-//                         Image(
-//                           image: AssetImage('images/elon_musk.png'),
-//                           height: 250,
-//                           width: 85,
-//                         ),
-//                         Padding(padding: EdgeInsets.only(left: 10)),
-//                         Text(
-//                           'TESLA',
-//                           style: TextStyle(color: Colors.red),
-//                         ),
-//                         Padding(padding: EdgeInsets.only(left: 10)),
-//                         Text(
-//                           'USD 838.29',
-//                           style: TextStyle(
-//                             color: Color.fromARGB(255, 119, 119, 119),
-//                           ),
-//                         ),
-//                         Padding(padding: EdgeInsets.only(left: 10)),
-//                         Text(
-//                           '-1.00 (-0.12%)',
-//                           style: TextStyle(color: Colors.red),
-//                         ),
-//                       ],
-//                     ),
-//                     height: 30,
-//                   ),
-//                   SizedBox(
-//                     height: 25,
-//                     child: ListView(
-//                       scrollDirection: Axis.horizontal,
-//                       children: <Widget>[
-//                         const Padding(
-//                             padding: EdgeInsets.symmetric(horizontal: 5)),
-//                         ElevatedButton(
-//                           style: widget.smallButtons,
-//                           onPressed: () => print('News'),
-//                           child: const Text(
-//                             'NEWS',
-//                             style: TextStyle(
-//                                 color: Colors.white,
-//                                 fontSize: 13,
-//                                 fontWeight: FontWeight.bold),
-//                           ),
-//                         ),
-//                         const Padding(
-//                             padding: EdgeInsets.symmetric(horizontal: 5)),
-//                         ButtonTheme(
-//                           child: ElevatedButton(
-//                             style: widget.smallButtons,
-//                             onPressed: () {
-//                               Navigator.push(
-//                                   context,
-//                                   MaterialPageRoute(
-//                                       builder: (_) => HomePage()));
-//                             },
-//                             // onPressed: () => print('Forum'),
-//                             child: const Text(
-//                               'FORUM',
-//                               style: TextStyle(
-//                                   color: Colors.white,
-//                                   fontSize: 13,
-//                                   fontWeight: FontWeight.bold),
-//                             ),
-//                           ),
-//                         ),
-//                         const Padding(
-//                             padding: EdgeInsets.symmetric(horizontal: 5)),
-//                         ButtonTheme(
-//                           child: ElevatedButton(
-//                             style: widget.smallButtons,
-//                             onPressed: () => print('MULTIMEDIA'),
-//                             child: const Text(
-//                               'MULTIMEDIA',
-//                               style: TextStyle(
-//                                   color: Colors.white,
-//                                   fontSize: 13,
-//                                   fontWeight: FontWeight.bold),
-//                             ),
-//                           ),
-//                         ),
-//                         const Padding(
-//                             padding: EdgeInsets.symmetric(horizontal: 5)),
-//                         ButtonTheme(
-//                           child: ElevatedButton(
-//                             style: widget.smallButtons,
-//                             onPressed: () {
-//                               Navigator.push(
-//                                   context,
-//                                   MaterialPageRoute(
-//                                       builder: (_) => HomePage()));
-//                             },
-//                             child: const Text(
-//                               'CHAT ROOM',
-//                               style: TextStyle(
-//                                   color: Colors.white,
-//                                   fontSize: 13,
-//                                   fontWeight: FontWeight.bold),
-//                             ),
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                   //search and filter field
-//                   Container(
-//                     decoration: BoxDecoration(
-//                         color: Colors.white,
-//                         borderRadius: BorderRadius.circular(25)),
-//                     height: 40,
-//                     margin:
-//                         const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-//                     child: Row(
-//                       children: [
-//                         Expanded(
-//                           flex: 6,
-//                           child: Container(
-//                             margin: const EdgeInsets.symmetric(horizontal: 1),
-//                             padding: const EdgeInsets.symmetric(horizontal: 5),
-//                             decoration: BoxDecoration(
-//                                 color: const Color.fromARGB(255, 223, 223, 223),
-//                                 borderRadius: BorderRadius.circular(10),
-//                                 border:
-//                                     Border.all(color: Colors.grey, width: 2)),
-//                             child: const CupertinoSearchTextField(
-//                                 backgroundColor: Colors.white),
-//                           ),
-//                         ),
-//                         Expanded(
-//                           flex: 3,
-//                           child: Container(
-//                               margin: const EdgeInsets.symmetric(horizontal: 1),
-//                               padding:
-//                                   const EdgeInsets.symmetric(horizontal: 5),
-//                               decoration: BoxDecoration(
-//                                   color:
-//                                       const Color.fromARGB(255, 223, 223, 223),
-//                                   borderRadius: BorderRadius.circular(10),
-//                                   border:
-//                                       Border.all(color: Colors.grey, width: 2)),
-//                               child: const DropDownLst()),
-//                         ),
-//                         Expanded(
-//                             flex: 3,
-//                             child: Container(
-//                                 padding:
-//                                     const EdgeInsets.symmetric(horizontal: 5),
-//                                 decoration: BoxDecoration(
-//                                     color: const Color.fromARGB(
-//                                         255, 223, 223, 223),
-//                                     borderRadius: BorderRadius.circular(10),
-//                                     border: Border.all(
-//                                         color: Colors.grey, width: 2)),
-//                                 child: const DropDownLst())),
-//                       ],
-//                     ),
-//                   ),
-//                 ],
-//               )),
-//           Center(
-//               child: Container(
-//             margin: EdgeInsets.symmetric(vertical: 10),
-//             decoration: BoxDecoration(
-//                 color: Color.fromARGB(255, 73, 69, 138),
-//                 borderRadius: BorderRadius.circular(30)),
-//             child: FlatButton(
-//               onPressed: () {
-//                 print('loading');
-//               },
-//               child: Text(
-//                 'Load more',
-//                 style: TextStyle(color: Colors.white),
-//               ),
-//             ),
-//           ))
-//         ],
-//       ),
-//     );
-//   }
-
-//   getNewAPIData() async {
-//     try {
-//       var url = Uri.parse('https://www.googleapis.com');
-//       var response = await http.get(url);
-//       if (response.statusCode == 200) {
-//         var responseData = response.body;
-//         var decodedData = jsonDecode(responseData);
-//         return decodedData;
-//       } else {
-//         return 'failed';
-//       }
-//     } catch (e) {
-//       return 'failed';
-//     }
-//   }
-// }

@@ -1,8 +1,11 @@
+import 'package:emv_home/api/services/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../dropDown.dart';
+import '../../dropDown_Relevance.dart';
+import '../../dropDown_duration.dart';
+import '../../screens/chatRoom/chatScreens/chatPage.dart';
 import '../../screens/homeScreen.dart';
+import 'teslaForumScreen.dart';
 
 class TeslaTop extends StatelessWidget {
   TeslaTop({Key? key}) : super(key: key);
@@ -87,7 +90,7 @@ class TeslaTop extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => HomeScreen()));
+                                    builder: (_) => TslaForumScreen()));
                           },
                           // onPressed: () => print('Forum'),
                           child: const Text(
@@ -120,10 +123,8 @@ class TeslaTop extends StatelessWidget {
                         child: ElevatedButton(
                           style: smallButtons,
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => HomeScreen()));
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (_) => ChatPage()));
                           },
                           child: const Text(
                             'CHAT ROOM',
@@ -170,7 +171,7 @@ class TeslaTop extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                                 border:
                                     Border.all(color: Colors.grey, width: 2)),
-                            child: const DropDownLst()),
+                            child: const DropDownDuration()),
                       ),
                       Expanded(
                           flex: 3,
@@ -183,7 +184,7 @@ class TeslaTop extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10),
                                   border:
                                       Border.all(color: Colors.grey, width: 2)),
-                              child: const DropDownLst())),
+                              child: const DropDownRelevance())),
                     ],
                   ),
                 ),

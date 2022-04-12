@@ -1,7 +1,12 @@
+import 'package:emv_home/sections/elon_musk/elonMuskforumScreen.dart';
+import 'package:emv_home/publicContainer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
-import '../../dropDown.dart';
+import '../../dropDown_Relevance.dart';
+import '../../dropDown_duration.dart';
+import '../../screens/chatRoom/chatScreens/chatPage.dart';
 import '../../screens/homeScreen.dart';
 
 class ElonMuskTop extends StatelessWidget {
@@ -16,6 +21,13 @@ class ElonMuskTop extends StatelessWidget {
       borderRadius: BorderRadius.all(Radius.circular(50)),
     ),
   );
+
+  // final ValueNotifier<String> person = ValueNotifier<String>('');
+  // var isLoading = false;
+  // void varCall(p) {
+  //   person.value = p;
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -88,9 +100,8 @@ class ElonMuskTop extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => HomeScreen()));
+                                    builder: (_) => elonMuskForumScreen()));
                           },
-                          // onPressed: () => print('Forum'),
                           child: const Text(
                             'FORUM',
                             style: TextStyle(
@@ -121,10 +132,8 @@ class ElonMuskTop extends StatelessWidget {
                         child: ElevatedButton(
                           style: smallButtons,
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => HomeScreen()));
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (_) => ChatPage()));
                           },
                           child: const Text(
                             'CHAT ROOM',
@@ -171,7 +180,7 @@ class ElonMuskTop extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                                 border:
                                     Border.all(color: Colors.grey, width: 2)),
-                            child: const DropDownLst()),
+                            child: const DropDownDuration()),
                       ),
                       Expanded(
                           flex: 3,
@@ -184,7 +193,7 @@ class ElonMuskTop extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10),
                                   border:
                                       Border.all(color: Colors.grey, width: 2)),
-                              child: const DropDownLst())),
+                              child: const DropDownRelevance())),
                     ],
                   ),
                 ),

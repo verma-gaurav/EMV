@@ -1,4 +1,5 @@
-import 'package:emv_home/post_model.dart';
+import 'package:emv_home/screens/about_emv.dart';
+import 'package:emv_home/screens/contact_us.dart';
 import 'package:emv_home/screens/logIn.dart';
 import 'package:emv_home/screens/signUp.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +88,10 @@ class LeftSideDrawer extends StatelessWidget {
             leading: const Icon(Icons.arrow_forward_outlined),
             iconColor: Colors.red,
             title: const Text('ABOUT EMV'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => AboutEMV()))
+            },
           ),
           const DividingLine(),
           ListTile(
@@ -122,7 +126,10 @@ class LeftSideDrawer extends StatelessWidget {
             leading: const Icon(Icons.arrow_forward_outlined),
             iconColor: Colors.red,
             title: const Text('CONTACT US'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => ContactUs()))
+            },
           ),
           const DividingLine(),
         ],

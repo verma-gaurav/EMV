@@ -44,7 +44,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     width: 2,
                   ),
                   CircleAvatar(
-                    backgroundImage: AssetImage("userImage1.png"),
+                    backgroundImage: AssetImage("images/user_image.png"),
                     maxRadius: 20,
                   ),
                   SizedBox(

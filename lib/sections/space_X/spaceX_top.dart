@@ -1,7 +1,10 @@
+import 'package:emv_home/screens/chatRoom/chatScreens/chatPage.dart';
+import 'package:emv_home/sections/space_X/spaceXForumScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../dropDown.dart';
+import '../../dropDown_Relevance.dart';
+import '../../dropDown_duration.dart';
 import '../../screens/homeScreen.dart';
 
 class SpaceXTop extends StatelessWidget {
@@ -88,7 +91,7 @@ class SpaceXTop extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => HomeScreen()));
+                                    builder: (_) => SpaceXForumScreen()));
                           },
                           // onPressed: () => print('Forum'),
                           child: const Text(
@@ -121,10 +124,8 @@ class SpaceXTop extends StatelessWidget {
                         child: ElevatedButton(
                           style: smallButtons,
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => HomeScreen()));
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (_) => ChatPage()));
                           },
                           child: const Text(
                             'CHAT ROOM',
@@ -171,7 +172,7 @@ class SpaceXTop extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                                 border:
                                     Border.all(color: Colors.grey, width: 2)),
-                            child: const DropDownLst()),
+                            child: const DropDownDuration()),
                       ),
                       Expanded(
                           flex: 3,
@@ -184,7 +185,7 @@ class SpaceXTop extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10),
                                   border:
                                       Border.all(color: Colors.grey, width: 2)),
-                              child: const DropDownLst())),
+                              child: const DropDownRelevance())),
                     ],
                   ),
                 ),

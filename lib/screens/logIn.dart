@@ -40,13 +40,6 @@ class _logInState extends State<logIn> {
               )
             ],
           ),
-          // const Align(
-          //   alignment: Alignment.topRight,
-          //   child: Icon(
-          //     Icons.close,
-          //   ),
-          // ),
-
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: TextField(
