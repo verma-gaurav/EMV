@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:emv_home/screens/signUp.dart';
 import 'package:emv_home/sections/elon_musk/elon_musk_card.dart';
-import 'package:emv_home/sections/tesla/tesla_card.dart';
+import 'package:emv_home/sections/tesla_motors/tesla_card.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 import '../drawer/leftSideDrawer.dart';
@@ -8,12 +10,14 @@ import '../drawer/rightSideDrawer.dart';
 import '../sections/elon_musk/elon_musk_top.dart';
 import '../sections/space_X/space_X_Card.dart';
 import '../sections/space_X/spaceX_top.dart';
-import '../sections/tesla/tesla_top.dart';
+import '../sections/tesla_motors/tesla_top.dart';
 
 import 'dart:async';
 
+import '../sections/tesla_energy/tesla_energy_card.dart';
+
 class HomeScreen extends StatelessWidget {
-  get smallButtons => null;
+  // get smallButtons => null;
   final ValueNotifier<String> newsTab = ValueNotifier<String>('em');
   var isLoading = false;
   void varCall(p) {
@@ -63,69 +67,67 @@ class HomeScreen extends StatelessWidget {
                         onPressed: () {
                           // varCall("tesla");
                           showDialog(
-                              context: context,
-                              builder: (ctx) {
-                                return Dialog(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(40)),
-                                    elevation: 16,
-                                    child: Container(
-                                        padding: EdgeInsets.only(top: 40),
-                                        height: 200,
-                                        width: 300,
-                                        child: Center(
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                "Choose One",
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                            context: context,
+                            builder: (ctx) {
+                              return Dialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25)),
+                                elevation: 16,
+                                child: Container(
+                                  padding: EdgeInsets.only(top: 40),
+                                  height: 200,
+                                  width: 300,
+                                  child: Center(
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "Choose One",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Padding(
+                                            padding:
+                                                EdgeInsets.only(bottom: 5)),
+                                        ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Colors.green,
+                                              shape: new RoundedRectangleBorder(
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        30.0),
                                               ),
-                                              Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: 10)),
-                                              ElevatedButton(
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    primary: Colors.green,
-                                                    shape:
-                                                        new RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          new BorderRadius
-                                                              .circular(30.0),
-                                                    ),
-                                                  ),
-                                                  onPressed: () {
-                                                    varCall('tesla');
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Text("Tesla Energy",
-                                                      style: TextStyle(
-                                                          color:
-                                                              Colors.white))),
-                                              ElevatedButton(
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    primary: Colors.red,
-                                                    shape:
-                                                        new RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          new BorderRadius
-                                                              .circular(30.0),
-                                                    ),
-                                                  ),
-                                                  onPressed: () {},
-                                                  child: Text("Tesla Motors",
-                                                      style: TextStyle(
-                                                          color:
-                                                              Colors.white))),
-                                            ],
-                                          ),
-                                        )));
-                              });
+                                            ),
+                                            onPressed: () {
+                                              varCall('teslaEnergy');
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text("Tesla Energy",
+                                                style: TextStyle(
+                                                    color: Colors.white))),
+                                        ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Colors.red,
+                                              shape: new RoundedRectangleBorder(
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        30.0),
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              varCall('teslaMotors');
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text("Tesla Motors",
+                                                style: TextStyle(
+                                                    color: Colors.white))),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
                         },
                         child: Column(
                           children: [
@@ -259,32 +261,35 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
 
-          SizedBox(
-              child: ValueListenableBuilder<String>(
-            builder: (BuildContext context, String value, Widget? child) {
-              // This builder will only get called when the _counter
-              // is updated.
-              return newsTab.value == 'tesla'
-                  ? TeslaTop()
-                  : newsTab.value == 'spacex'
-                      ? SpaceXTop()
-                      : ElonMuskTop();
-            },
-            valueListenable: newsTab,
-            // The child parameter is most helpful if the child is
-            // expensive to build and does not depend on the value from
-            // the notifier.
-          )),
+          // SizedBox(
+          //     child: ValueListenableBuilder<String>(
+          //     builder: (BuildContext context, String value, Widget? child) {
+          //     // This builder will only get called when the _counter
+          //     // is updated.
+          //     return newsTab.value == 'tesla'
+          //         ? TeslaTop()
+          //         : newsTab.value == 'spacex'
+          //             ? SpaceXTop()
+          //             : ElonMuskTop();
+          //   },
+          //   valueListenable: newsTab,
+          // The child parameter is most helpful if the child is
+          // expensive to build and does not depend on the value from
+          // the notifier.
+          // )),
+
           Expanded(
               child: ValueListenableBuilder<String>(
             builder: (BuildContext context, String value, Widget? child) {
               // This builder will only get called when the _counter
               // is updated.
-              return newsTab.value == 'tesla'
+              return newsTab.value == 'teslaMotors'
                   ? TeslaCard(newsTab)
                   : newsTab.value == 'spacex'
                       ? SpaceXCard(newsTab)
-                      : ElonMuskCard(newsTab);
+                      : newsTab.value == 'teslaEnergy'
+                          ? TeslaEnergyCard(newsTab)
+                          : ElonMuskCard(newsTab);
             },
             valueListenable: newsTab,
             // The child parameter is most helpful if the child is

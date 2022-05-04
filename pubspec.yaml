@@ -36,10 +36,21 @@ dependencies:
   intl: ^0.17.0
   dio: ^4.0.6
   lorem_ipsum: ^0.0.1
+  rate_my_app: 0.6.0+3
   flutter_icons: ^1.1.0
   share_plus: ^4.0.3
   filter_list: ^1.0.1
   flutter_phone_direct_caller: ^2.1.0
+  loading_indicator: ^3.0.3
+  flutter_html: ^2.2.1
+  fluttertoast: ^8.0.9
+  smooth_star_rating: ^1.1.1
+  rating_dialog: ^2.0.3
+  flutter_rating_bar: ^4.0.0
+  like_button: ^2.0.4
+  social_embed_webview: ^0.3.2
+  tweet_ui: ^4.0.1
+  dropdown_button2: ^1.4.0
 flutter_native_splash:
   # This package generates native code to customize Flutter's default white native splash screen
   # with background color and splash image.

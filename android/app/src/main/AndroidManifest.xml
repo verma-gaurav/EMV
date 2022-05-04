@@ -2,6 +2,7 @@
     package="com.example.emv_home">
     <!-- Nest within the manifest element, not the application element-->
     <uses-permission android:name="android.permission.INTERNET"/>
+<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="16" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 <queries>
     <intent>

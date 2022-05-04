@@ -1,6 +1,15 @@
+import 'package:emv_home/popup_screens/comment.dart';
+import 'package:emv_home/popup_screens/flag.dart';
+import 'package:emv_home/sections/elon_musk/elon_musk_models.dart';
+import 'package:emv_home/sections/elon_musk/elon_musk_top.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../api/services/services.dart';
+import '../../popup_screens/star_rating.dart';
 import '../../screens/detailscreen.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:like_button/like_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ElonMuskCard extends StatefulWidget {
   ElonMuskCard(ValueNotifier<String> newsTab);
@@ -10,7 +19,12 @@ class ElonMuskCard extends StatefulWidget {
 }
 
 class _ElonMuskCardState extends State<ElonMuskCard> {
+  bool isLiked = false;
+  int likeCount = 10;
   var news = [];
+  void _shareContent() {
+    Share.share("I am Sharing this through share button");
+  }
 
   @override
   void initState() {
@@ -28,6 +42,7 @@ class _ElonMuskCardState extends State<ElonMuskCard> {
 
   @override
   Widget build(BuildContext context) {
+    double size = 15;
     return Container(
       child: (news.length != 0)
           ? ListView.builder(
@@ -39,6 +54,13 @@ class _ElonMuskCardState extends State<ElonMuskCard> {
                 String discuss_count = newsCall['discuss_count'].toString();
                 String like_count = newsCall['like_count'].toString();
                 String flag_count = newsCall['flag_count'].toString();
+                var pubDate = newsCall['pubDate'];
+                if (index == 0) {
+                  return ElonMuskModels();
+                }
+                if (index == 1) {
+                  return ElonMuskTop();
+                }
                 return Container(
                   margin: EdgeInsets.all(5),
                   height: 130,
@@ -104,13 +126,13 @@ class _ElonMuskCardState extends State<ElonMuskCard> {
                                                     child: Icon(
                                                   Icons.calendar_month,
                                                   size: 15,
-                                                  color: Colors.grey,
+                                                  color: Colors.teal,
                                                 ))),
                                             Expanded(
                                                 flex: 8,
                                                 child: Container(
                                                     child: Text(
-                                                  newsCall['pubDate'],
+                                                  pubDate.substring(0, 10),
                                                   style: TextStyle(
                                                       fontSize: 10,
                                                       color: Colors.grey),
@@ -119,26 +141,37 @@ class _ElonMuskCardState extends State<ElonMuskCard> {
                                         )),
                                     Expanded(
                                         flex: 4,
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                                flex: 2,
-                                                child: Container(
-                                                  child: Icon(
-                                                    Icons.comment,
-                                                    size: 15,
-                                                    color: Colors.grey,
-                                                  ),
-                                                )),
-                                            Expanded(
-                                                flex: 8,
-                                                child: Container(
-                                                    child: Text(
-                                                  discuss_count,
-                                                  style: TextStyle(
-                                                      color: Colors.grey),
-                                                ))),
-                                          ],
+                                        child: RawMaterialButton(
+                                          materialTapTargetSize:
+                                              MaterialTapTargetSize.shrinkWrap,
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (ctx) {
+                                                  return Comment();
+                                                });
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                  flex: 2,
+                                                  child: Container(
+                                                    child: Icon(
+                                                      Icons.comment,
+                                                      size: 15,
+                                                      color: Colors.blue,
+                                                    ),
+                                                  )),
+                                              Expanded(
+                                                  flex: 8,
+                                                  child: Container(
+                                                      child: Text(
+                                                    discuss_count,
+                                                    style: TextStyle(
+                                                        color: Colors.grey),
+                                                  ))),
+                                            ],
+                                          ),
                                         )),
                                     Expanded(
                                         flex: 4,
@@ -150,7 +183,7 @@ class _ElonMuskCardState extends State<ElonMuskCard> {
                                                   child: Icon(
                                                     Icons.remove_red_eye,
                                                     size: 15,
-                                                    color: Colors.grey,
+                                                    color: Colors.green,
                                                   ),
                                                 )),
                                             Expanded(
@@ -168,80 +201,102 @@ class _ElonMuskCardState extends State<ElonMuskCard> {
                                 ))),
                             Expanded(
                                 flex: 2,
-                                child: Container(
-                                    child: Row(
+                                child: Row(
                                   children: [
                                     Expanded(
-                                        flex: 4,
+                                      flex: 4,
+                                      child: RawMaterialButton(
+                                        onPressed: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (ctx) {
+                                                return const Flag();
+                                              });
+                                        },
                                         child: Row(
                                           children: [
                                             Expanded(
                                                 flex: 2,
                                                 child: Container(
-                                                  child: Icon(
-                                                    Icons.favorite_outlined,
-                                                    size: 15,
-                                                    color: Colors.grey,
-                                                  ),
-                                                )),
-                                            Expanded(
-                                                flex: 8,
-                                                child: Container(
-                                                    child: Text(
-                                                  like_count,
-                                                  style: TextStyle(
-                                                      color: Colors.grey),
+                                                    child: Icon(
+                                                  Icons.flag,
+                                                  size: 15,
+                                                  color: Colors.black,
                                                 ))),
-                                          ],
-                                        )),
-                                    Expanded(
-                                        flex: 4,
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                                flex: 2,
-                                                child: Container(
-                                                  child: Icon(
-                                                    Icons.share,
-                                                    size: 15,
-                                                    color: Colors.grey,
-                                                  ),
-                                                )),
-                                            Expanded(
-                                                flex: 8,
-                                                child: Container(
-                                                    child: Text(
-                                                  'admin_name',
-                                                  style: TextStyle(
-                                                      color: Colors.grey),
-                                                ))),
-                                          ],
-                                        )),
-                                    Expanded(
-                                        flex: 4,
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                                flex: 2,
-                                                child: Container(
-                                                  child: Icon(
-                                                    Icons.flag,
-                                                    size: 15,
-                                                    color: Colors.grey,
-                                                  ),
-                                                )),
                                             Expanded(
                                                 flex: 8,
                                                 child: Container(
                                                     child: Text(
                                                   flag_count,
                                                   style: TextStyle(
+                                                      fontSize: 10,
                                                       color: Colors.grey),
                                                 ))),
                                           ],
-                                        ))
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                        flex: 4,
+                                        child: RawMaterialButton(
+                                          onPressed: _shareContent,
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                  flex: 2,
+                                                  child: Container(
+                                                    child: Icon(
+                                                      Icons.share,
+                                                      size: 15,
+                                                      color: Colors.blue,
+                                                    ),
+                                                  )),
+                                              Expanded(
+                                                  flex: 8,
+                                                  child: Container(
+                                                      child: Text(
+                                                    'admin_name',
+                                                    style: TextStyle(
+                                                        color: Colors.grey),
+                                                  ))),
+                                            ],
+                                          ),
+                                        )),
+                                    Expanded(
+                                      flex: 4,
+                                      child: Container(
+                                        margin: EdgeInsets.only(right: 30),
+                                        alignment: Alignment.centerLeft,
+                                        child: LikeButton(
+                                          size: size,
+                                          isLiked: isLiked,
+                                          likeCount: likeCount,
+                                          likeBuilder: (isLiked) {
+                                            final color = isLiked
+                                                ? Colors.red
+                                                : Colors.grey;
+                                            return Icon(Icons.favorite,
+                                                color: color, size: size);
+                                          },
+                                          likeCountPadding: EdgeInsets.only(
+                                              left: 5, right: 15),
+                                          countBuilder: (count, isLiked, text) {
+                                            final color = Colors.grey;
+                                            return Text(text,
+                                                style: TextStyle(
+                                                  color: color,
+                                                  fontSize: 10,
+                                                ));
+                                          },
+                                          onTap: (isLiked) async {
+                                            likeCount += this.isLiked ? 1 : -1;
+                                            return !isLiked;
+                                          },
+                                        ),
+                                      ),
+                                    )
                                   ],
-                                ))),
+                                )),
                             Expanded(
                                 flex: 2,
                                 child: Container(
@@ -249,13 +304,45 @@ class _ElonMuskCardState extends State<ElonMuskCard> {
                                   children: [
                                     Expanded(
                                         flex: 4,
-                                        child: Container(
-                                          child: Icon(
-                                            Icons.star,
-                                            size: 15,
-                                            color: Colors.yellow,
-                                          ),
-                                        )),
+                                        child: FlatButton(
+                                            padding: EdgeInsets.zero,
+                                            materialTapTargetSize:
+                                                MaterialTapTargetSize
+                                                    .shrinkWrap,
+                                            onPressed: () {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (ctx) {
+                                                    return StarRating();
+                                                  });
+                                            },
+                                            child: FittedBox(
+                                              fit: BoxFit.fill,
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.star_border_outlined,
+                                                    color: Colors.yellow,
+                                                  ),
+                                                  Icon(
+                                                    Icons.star_border_outlined,
+                                                    color: Colors.yellow,
+                                                  ),
+                                                  Icon(
+                                                    Icons.star_border_outlined,
+                                                    color: Colors.yellow,
+                                                  ),
+                                                  Icon(
+                                                    Icons.star_border_outlined,
+                                                    color: Colors.yellow,
+                                                  ),
+                                                  Icon(
+                                                    Icons.star_border_outlined,
+                                                    color: Colors.yellow,
+                                                  ),
+                                                ],
+                                              ),
+                                            ))),
                                     Padding(
                                         padding: EdgeInsets.only(
                                             right: 10, bottom: 5)),
@@ -297,27 +384,26 @@ class _ElonMuskCardState extends State<ElonMuskCard> {
                                         padding: EdgeInsets.only(
                                             right: 10, bottom: 5)),
                                     Expanded(
-                                        flex: 4,
-                                        child: OutlinedButton(
-                                          style: OutlinedButton.styleFrom(
-                                            backgroundColor: Colors.grey,
-                                            tapTargetSize: MaterialTapTargetSize
-                                                .shrinkWrap,
-                                            padding: EdgeInsets.all(0),
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        12.0)),
-                                            primary: Colors.grey,
+                                      flex: 4,
+                                      child: Material(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12.0)),
+                                        color: Colors.grey,
+                                        child: InkWell(
+                                          onTap: () => launch(newsCall['link']),
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              "Read on",
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.white),
+                                            ),
                                           ),
-                                          onPressed: () {},
-                                          child: Text(
-                                            "Read on",
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.white),
-                                          ),
-                                        )),
+                                        ),
+                                      ),
+                                    ),
                                     Padding(
                                         padding: EdgeInsets.only(
                                             right: 10, bottom: 5)),
@@ -334,7 +420,9 @@ class _ElonMuskCardState extends State<ElonMuskCard> {
             )
           : Container(
               child: Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: Colors.red,
+                ),
               ),
             ),
     );

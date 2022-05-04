@@ -1,16 +1,13 @@
-import 'package:emv_home/api/services/services.dart';
 import 'package:emv_home/sections/space_X/spaceXMultimedia.dart';
-import 'package:emv_home/sections/tesla_motors/tesla_multimedia.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../dropDown_Relevance.dart';
 import '../../dropDown_duration.dart';
 import '../../screens/chatRoom/chatScreens/chatPage.dart';
-import '../../screens/homeScreen.dart';
-import 'spaceXForumScreen.dart';
+import 'tesla_energy_forum_screen.dart';
 
-class SpaceXTop extends StatelessWidget {
-  SpaceXTop({Key? key}) : super(key: key);
+class TeslaEnergyTop extends StatelessWidget {
+  TeslaEnergyTop({Key? key}) : super(key: key);
   final ButtonStyle smallButtons = ElevatedButton.styleFrom(
     onPrimary: const Color.fromARGB(255, 185, 185, 185),
     primary: const Color.fromARGB(255, 27, 103, 168),
@@ -51,14 +48,14 @@ class SpaceXTop extends StatelessWidget {
                     children: const [
                       Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
                       Image(
-                        image: AssetImage('images/space_x.png'),
+                        image: AssetImage('images/tesla_energy.png'),
                         height: 250,
                         width: 85,
                       ),
                       Padding(padding: EdgeInsets.only(left: 10)),
                       Text(
                         'TESLA',
-                        style: TextStyle(color: Colors.red),
+                        style: TextStyle(color: Colors.green),
                       ),
                       Padding(padding: EdgeInsets.only(left: 10)),
                       Text(
@@ -103,7 +100,7 @@ class SpaceXTop extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => SpaceXForumScreen()));
+                                    builder: (_) => TslaEnergyForumScreen()));
                           },
                           // onPressed: () => print('Forum'),
                           child: const Text(

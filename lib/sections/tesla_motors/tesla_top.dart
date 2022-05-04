@@ -1,11 +1,10 @@
-import 'package:emv_home/api/services/services.dart';
+import 'package:emv_home/sections/space_X/spaceXMultimedia.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../dropDown_Relevance.dart';
 import '../../dropDown_duration.dart';
 import '../../screens/chatRoom/chatScreens/chatPage.dart';
-import '../../screens/homeScreen.dart';
-import 'teslaForumScreen.dart';
+import 'TeslaForumScreen.dart';
 
 class TeslaTop extends StatelessWidget {
   TeslaTop({Key? key}) : super(key: key);
@@ -22,8 +21,19 @@ class TeslaTop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 5),
-      width: 100,
+      margin: EdgeInsets.all(5),
+      width: 250,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black,
+            blurRadius: 9.0,
+            spreadRadius: 0.0,
+            offset: Offset(2.0, 2.0), // shadow direction: bottom right
+          )
+        ],
+      ),
       child: Column(
         // padding: const EdgeInsets.all(8),
         children: <Widget>[
@@ -107,7 +117,12 @@ class TeslaTop extends StatelessWidget {
                       ButtonTheme(
                         child: ElevatedButton(
                           style: smallButtons,
-                          onPressed: () => print('MULTIMEDIA'),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => SpaceXMultimedia()));
+                          },
                           child: const Text(
                             'MULTIMEDIA',
                             style: TextStyle(
@@ -140,6 +155,15 @@ class TeslaTop extends StatelessWidget {
                 ),
                 //search and filter field
                 Container(
+                  margin: const EdgeInsets.only(left: 5, right: 5, top: 5),
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 223, 223, 223),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.grey, width: 2)),
+                  child: const CupertinoSearchTextField(
+                      backgroundColor: Colors.white),
+                ),
+                Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(25)),
@@ -151,19 +175,6 @@ class TeslaTop extends StatelessWidget {
                       Expanded(
                         flex: 6,
                         child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 1),
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 223, 223, 223),
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.grey, width: 2)),
-                          child: const CupertinoSearchTextField(
-                              backgroundColor: Colors.white),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Container(
                             margin: const EdgeInsets.symmetric(horizontal: 1),
                             padding: const EdgeInsets.symmetric(horizontal: 5),
                             decoration: BoxDecoration(
@@ -174,7 +185,7 @@ class TeslaTop extends StatelessWidget {
                             child: const DropDownDuration()),
                       ),
                       Expanded(
-                          flex: 3,
+                          flex: 6,
                           child: Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 5),

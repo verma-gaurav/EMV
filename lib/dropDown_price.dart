@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class DropDownDuration extends StatefulWidget {
-  const DropDownDuration({Key? key}) : super(key: key);
+class DropDownPrice extends StatefulWidget {
+  const DropDownPrice({Key? key}) : super(key: key);
 
   @override
-  State<DropDownDuration> createState() => _DropDownDurationState();
+  State<DropDownPrice> createState() => _DropDownPriceState();
 }
 
-class _DropDownDurationState extends State<DropDownDuration> {
+class _DropDownPriceState extends State<DropDownPrice> {
   String dropdownValue = 'Duration';
   @override
   Widget build(BuildContext context) {

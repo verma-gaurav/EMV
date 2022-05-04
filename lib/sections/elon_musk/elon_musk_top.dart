@@ -3,7 +3,6 @@ import 'package:emv_home/publicContainer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-
 import '../../dropDown_Relevance.dart';
 import '../../dropDown_duration.dart';
 import '../../screens/chatRoom/chatScreens/chatPage.dart';
@@ -22,6 +21,7 @@ class ElonMuskTop extends StatelessWidget {
     ),
   );
 
+  static String id = 'elon_musk_top';
   // final ValueNotifier<String> person = ValueNotifier<String>('');
   // var isLoading = false;
   // void varCall(p) {
@@ -31,14 +31,25 @@ class ElonMuskTop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 5),
-      width: 100,
-      decoration: const BoxDecoration(),
+      margin: EdgeInsets.all(5),
+      width: 250,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black,
+            blurRadius: 9.0,
+            spreadRadius: 0.0,
+            offset: Offset(2.0, 2.0), // shadow direction: bottom right
+          )
+        ],
+      ),
       child: Column(
         // padding: const EdgeInsets.all(8),
         children: <Widget>[
           Container(
-            margin: const EdgeInsets.only(bottom: 5),
+            margin: const EdgeInsets.only(bottom: 5, left: 5, right: 5),
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(10)),
             child: Column(
@@ -149,6 +160,15 @@ class ElonMuskTop extends StatelessWidget {
                 ),
                 //search and filter field
                 Container(
+                  margin: const EdgeInsets.only(left: 5, right: 5, top: 5),
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 223, 223, 223),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.grey, width: 2)),
+                  child: const CupertinoSearchTextField(
+                      backgroundColor: Colors.white),
+                ),
+                Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(25)),
@@ -160,19 +180,6 @@ class ElonMuskTop extends StatelessWidget {
                       Expanded(
                         flex: 6,
                         child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 1),
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 223, 223, 223),
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.grey, width: 2)),
-                          child: const CupertinoSearchTextField(
-                              backgroundColor: Colors.white),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Container(
                             margin: const EdgeInsets.symmetric(horizontal: 1),
                             padding: const EdgeInsets.symmetric(horizontal: 5),
                             decoration: BoxDecoration(
@@ -183,7 +190,7 @@ class ElonMuskTop extends StatelessWidget {
                             child: const DropDownDuration()),
                       ),
                       Expanded(
-                          flex: 3,
+                          flex: 6,
                           child: Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 5),

@@ -4,6 +4,7 @@ import 'package:emv_home/screens/logIn.dart';
 import 'package:emv_home/screens/signUp.dart';
 import 'package:flutter/material.dart';
 import '../screens/signUp.dart';
+import '../screens/used_tesla_cars.dart';
 // import '../screens/posts.dart';
 // import '../screens/chatRoom/chatScreens/homePage.dart';
 
@@ -105,7 +106,10 @@ class LeftSideDrawer extends StatelessWidget {
             leading: const Icon(Icons.arrow_forward_outlined),
             iconColor: Colors.red,
             title: const Text('BROWS USED TESLA'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => UsedTeslaCars()))
+            },
           ),
           const DividingLine(),
           ListTile(

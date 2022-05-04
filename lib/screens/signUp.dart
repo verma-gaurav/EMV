@@ -1,3 +1,4 @@
+import 'package:emv_home/api/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import '../main.dart';
@@ -10,6 +11,20 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  String? user_name, phone, first_name, last_name, password, email, cnfpassword;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  postSign_Up(user_name, phone, first_name, last_name, password, email,
+      cnfpassword) async {
+    print('fuction call dstart');
+    var postRes = await postSignUp(
+        user_name, phone, first_name, last_name, password, email, cnfpassword);
+    print(postRes);
+  }
+
   bool value = false;
   @override
   Widget build(BuildContext context) {
@@ -71,7 +86,6 @@ class _SignUpState extends State<SignUp> {
                   )
                 ],
               ),
-
               Container(
                 padding: EdgeInsets.symmetric(vertical: 20),
                 child: const Text(
@@ -79,10 +93,11 @@ class _SignUpState extends State<SignUp> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 ),
               ),
-              const Padding(
+              Padding(
                 padding:
                     EdgeInsets.only(left: 15.0, right: 15.0, top: 5, bottom: 0),
-                child: TextField(
+                child: TextFormField(
+                  onSaved: (newValue) => user_name = newValue,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'User Name',
@@ -92,24 +107,39 @@ class _SignUpState extends State<SignUp> {
                       hintText: 'Enter a valid Username'),
                 ),
               ),
-              const Padding(
+              Padding(
                 padding:
                     EdgeInsets.only(left: 15.0, right: 15.0, top: 5, bottom: 0),
-                child: TextField(
-                  obscureText: true,
+                child: TextFormField(
+                  onSaved: (newValue) => first_name = newValue,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Full Name',
+                      labelText: 'First Name',
                       labelStyle: TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.black)),
-                      hintText: 'Enter your full name'),
+                      hintText: 'Enter your first name'),
                 ),
               ),
-              const Padding(
+              Padding(
                 padding:
                     EdgeInsets.only(left: 15.0, right: 15.0, top: 5, bottom: 0),
-                child: TextField(
+                child: TextFormField(
+                  onSaved: (newValue) => last_name = newValue,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Last Name',
+                      labelStyle: TextStyle(color: Colors.black),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black)),
+                      hintText: 'Enter your last name'),
+                ),
+              ),
+              Padding(
+                padding:
+                    EdgeInsets.only(left: 15.0, right: 15.0, top: 5, bottom: 0),
+                child: TextFormField(
+                  onSaved: (newValue) => email = newValue,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Email Address',
@@ -119,11 +149,11 @@ class _SignUpState extends State<SignUp> {
                       hintText: 'Enter valid email address'),
                 ),
               ),
-              const Padding(
+              Padding(
                 padding:
                     EdgeInsets.only(left: 15.0, right: 15.0, top: 5, bottom: 0),
-                child: TextField(
-                  obscureText: true,
+                child: TextFormField(
+                  onSaved: (newValue) => phone = newValue,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Phone Number',
@@ -133,10 +163,11 @@ class _SignUpState extends State<SignUp> {
                       hintText: 'Enter Phone/Mobile Number'),
                 ),
               ),
-              const Padding(
+              Padding(
                 padding:
                     EdgeInsets.only(left: 15.0, right: 15.0, top: 5, bottom: 0),
-                child: TextField(
+                child: TextFormField(
+                  onSaved: (newValue) => password = newValue,
                   obscureText: true,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -147,10 +178,11 @@ class _SignUpState extends State<SignUp> {
                       hintText: 'Enter secure password'),
                 ),
               ),
-              const Padding(
+              Padding(
                 padding:
                     EdgeInsets.only(left: 15.0, right: 15.0, top: 5, bottom: 0),
-                child: TextField(
+                child: TextFormField(
+                  onSaved: (newValue) => cnfpassword = newValue,
                   obscureText: true,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -197,35 +229,37 @@ class _SignUpState extends State<SignUp> {
               FlatButton(
                 height: 50,
                 onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (ctx) => AlertDialog(
-                            title: const Image(
-                              image: NetworkImage(
-                                'https://c.tenor.com/0AVbKGY_MxMAAAAC/check-mark-verified.gif',
-                              ),
-                              height: 50,
-                              width: 50,
-                            ),
-                            content: const Text(
-                              "Successfully Registered",
-                              textAlign: TextAlign.center,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            actions: <Widget>[
-                              FlatButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => const Home()));
-                                  Navigator.of(ctx).pop();
-                                },
-                                child: const Text("okay"),
-                              ),
-                            ],
-                          ));
+                  postSign_Up(user_name, phone, first_name, last_name, password,
+                      email, cnfpassword);
+                  // showDialog(
+                  //     context: context,
+                  //     builder: (ctx) => AlertDialog(
+                  //           title: const Image(
+                  //             image: NetworkImage(
+                  //               'https://c.tenor.com/0AVbKGY_MxMAAAAC/check-mark-verified.gif',
+                  //             ),
+                  //             height: 50,
+                  //             width: 50,
+                  //           ),
+                  //           content: const Text(
+                  //             "Successfully Registered",
+                  //             textAlign: TextAlign.center,
+                  //             style:
+                  //                 const TextStyle(fontWeight: FontWeight.bold),
+                  //           ),
+                  //           actions: <Widget>[
+                  //             FlatButton(
+                  //               onPressed: () {
+                  //                 Navigator.push(
+                  //                     context,
+                  //                     MaterialPageRoute(
+                  //                         builder: (_) => const Home()));
+                  //                 Navigator.of(ctx).pop();
+                  //               },
+                  //               child: const Text("okay"),
+                  //             ),
+                  //           ],
+                  //         ));
                 },
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: const Text('Create Account',

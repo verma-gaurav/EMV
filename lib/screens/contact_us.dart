@@ -8,6 +8,8 @@ import '../drawer/leftSideDrawer.dart';
 import '../drawer/rightSideDrawer.dart';
 import 'homeScreen.dart';
 
+import 'package:fluttertoast/fluttertoast.dart';
+
 class ContactUs extends StatelessWidget {
   const ContactUs({Key? key}) : super(key: key);
 
@@ -217,7 +219,7 @@ class ContactUs extends StatelessWidget {
                                                 ElevatedButton(
                                                     style: ElevatedButton
                                                         .styleFrom(
-                                                      primary: Colors.red,
+                                                      primary: Colors.green,
                                                       shape:
                                                           new RoundedRectangleBorder(
                                                         borderRadius:

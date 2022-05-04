@@ -10,17 +10,17 @@ import '../../screens/detailscreen.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:like_button/like_button.dart';
 
-import 'spaceX_models.dart';
-import 'spaceX_top.dart';
+import 'tesla_energy_models.dart';
+import 'tesla_energy_top.dart';
 
-class SpaceXCard extends StatefulWidget {
-  SpaceXCard(ValueNotifier<String> newsTab);
+class TeslaEnergyCard extends StatefulWidget {
+  TeslaEnergyCard(ValueNotifier<String> newsTab);
 
   @override
-  State<SpaceXCard> createState() => _SpaceXCardState();
+  State<TeslaEnergyCard> createState() => _TeslaEnergyCardState();
 }
 
-class _SpaceXCardState extends State<SpaceXCard> {
+class _TeslaEnergyCardState extends State<TeslaEnergyCard> {
   bool isLiked = false;
   int likeCount = 10;
   var news = [];
@@ -36,7 +36,7 @@ class _SpaceXCardState extends State<SpaceXCard> {
   }
 
   getNewsList() async {
-    var newsFromApi = await getNewsSpaceX();
+    var newsFromApi = await getNewsTesla();
     setState(() {
       news = newsFromApi;
     });
@@ -58,10 +58,10 @@ class _SpaceXCardState extends State<SpaceXCard> {
                 String flag_count = newsCall['flag_count'].toString();
                 var pubDate = newsCall['pubDate'];
                 if (index == 0) {
-                  return SpaceXModels();
+                  return TeslaEnergyModels();
                 }
                 if (index == 1) {
-                  return SpaceXTop();
+                  return TeslaEnergyTop();
                 }
                 return Container(
                   margin: EdgeInsets.all(5),

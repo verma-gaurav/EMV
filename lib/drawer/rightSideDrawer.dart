@@ -3,13 +3,17 @@
 import 'dart:ui';
 
 import 'package:emv_home/drawer/popularPostsCard.dart';
-
+import 'package:social_embed_webview/platforms/twitter.dart';
+import 'package:social_embed_webview/social_embed_webview.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'popularPostsCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
+
+String tweetContent =
+    """<a class="twitter-timeline" href="https://twitter.com/elonmusk?ref_src=twsrc%5Etfw">Tweets by elonmusk</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>""";
 
 class RightSideDrawer extends StatelessWidget {
   const RightSideDrawer({Key? key}) : super(key: key);
@@ -123,26 +127,16 @@ class RightSideDrawer extends StatelessWidget {
             Container(
               height: 250,
               width: 300,
-              decoration: const BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  color: Colors.grey),
-              child: Card(
-                color: Colors.black,
-                elevation: 10,
-                semanticContainer: true,
-                child: ListView(
-                  children: const [
-                    Padding(padding: EdgeInsets.all(1)),
-                    PopularPostsCards(),
-                    Padding(padding: EdgeInsets.all(1)),
-                    PopularPostsCards(),
-                    Padding(padding: EdgeInsets.all(1)),
-                    PopularPostsCards(),
-                    Padding(padding: EdgeInsets.all(1)),
-                    PopularPostsCards(),
-                    Padding(padding: EdgeInsets.all(1)),
-                    PopularPostsCards(),
-                  ],
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      SocialEmbed(
+                          socialMediaObj:
+                              TwitterEmbedData(embedHtml: tweetContent)),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -1,7 +1,5 @@
-import 'package:emv_home/api/newsArticleModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:lorem_ipsum/lorem_ipsum.dart';
 import 'package:share_plus/share_plus.dart';
 import '../drawer/leftSideDrawer.dart';
 import '../drawer/rightSideDrawer.dart';
